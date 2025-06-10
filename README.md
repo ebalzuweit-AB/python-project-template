@@ -6,10 +6,10 @@
 
 Run tests:
 
-  uv run pytest
+    uv run pytest
 
 Run test suite:
 
-  tox
+    tox
 
 (Install `tox` with `uv tool install tox`)
