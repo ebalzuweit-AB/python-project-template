@@ -1,0 +1,44 @@
+requires = ["tox>=4"]
+env_list = ["format", "lint", "type", "3.12"]
+
+[env_run_base]
+description = "Run unit tests with coverage report"
+deps = [".", "pytest>=8", "pytest-asyncio", "pytest-cov", "pytest-sugar"]
+commands = [
+  [
+    "pytest",
+    "--cov=python_project_template",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    { replace = "posargs", default = [
+      "tests",
+    ], extend = true },
+  ],
+]
+
+[env.format]
+description = "Check formatting"
+skip_install = true
+deps = ["ruff"]
+commands = [["ruff", "format", "--check"]]
+
+[env.lint]
+description = "Check linting"
+skip_install = true
+deps = ["ruff"]
+commands = [["ruff", "check"]]
+
+[env.type]
+description = "Check typing"
+deps = ["mypy"]
+commands = [
+  [
+    "mypy",
+    "--config-file",
+    "pyproject.toml",
+    { replace = "posargs", default = [
+      "src",
+      "tests",
+    ], extend = true },
+  ],
+]
